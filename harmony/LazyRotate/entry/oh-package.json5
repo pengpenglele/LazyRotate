@@ -1,0 +1,9 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "屏幕方向控制 LazyRotate 鸿蒙版入口模块",
+  "main": "",
+  "author": "pengpenglele",
+  "license": "MIT",
+  "dependencies": {}
+}

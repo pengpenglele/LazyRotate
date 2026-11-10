@@ -1,0 +1,50 @@
+# ---- Gradle / Android ----
+.gradle/
+build/
+local.properties
+
+# ---- Kotlin ----
+.kotlin/
+
+# ---- 项目内自举残留与构建日志（tools/build.ps1 生成）----
+.toolchain/
+
+# ---- 构建产物（仓库不提交二进制，APK 请自行构建或从 Release 下载）----
+dist/
+*.apk
+*.aab
+
+# ---- 本机私有路径覆盖（见 tools/toolchain-paths.ps1）----
+tools/local-paths.ps1
+
+# ---- IDE ----
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ---- 生成物：Word 版主文档由 tools/md_to_docx.py 从 Markdown 生成 ----
+docs/*.docx
+
+# ---- 脚本编译产物（py / java）----
+__pycache__/
+*.pyc
+*.class
+tools/out/
+
+# ---- 签名材料：永不入库 ----
+*.keystore
+*.jks
+*.p12
+*.hprof
+
+# ---- 鸿蒙（DevEco Studio）----
+harmony/LazyRotate/.hvigor/
+harmony/LazyRotate/oh_modules/
+harmony/LazyRotate/local.properties
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+desktop.ini

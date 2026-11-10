@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  调色板。Compose 里的 Material 3 配色以 Kotlin 常量为主（ui/theme/Theme.kt），
+  这里只放 XML 主题（冷启动窗口背景）与图标等需要从资源引用的颜色，保持两边一致。
+-->
+<resources>
+    <!-- 冷启动窗口背景，与 Compose 浅色主题 background 一致，避免启动白闪。 -->
+    <color name="lazy_window_background">#F7FAFD</color>
+
+    <!-- 品牌色：主机位（锁 / 锁定） -->
+    <color name="lazy_primary">#0B6E99</color>
+    <color name="lazy_primary_container">#CBE6F5</color>
+
+    <!-- 辅助色：翻转 / 躺姿引擎 -->
+    <color name="lazy_secondary">#1E7F73</color>
+    <color name="lazy_secondary_container">#B8ECE2</color>
+
+    <!-- 提示色：权限引导 -->
+    <color name="lazy_tertiary">#B26A00</color>
+    <color name="lazy_tertiary_container">#FFDDB3</color>
+
+    <!-- 图标 / 矢量图使用 -->
+    <color name="lazy_icon_foreground">#FFFFFFFF</color>
+    <color name="lazy_icon_background">#0B6E99</color>
+</resources>

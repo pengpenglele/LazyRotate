@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "屏幕方向控制：控制本应用窗口方向，提供系统旋转设置引导与躺姿建议"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "屏幕方向控制主入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "屏幕方向控制"
+    }
+  ]
+}

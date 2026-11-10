@@ -1,0 +1,2 @@
+# 本工程为个人自用；release 关闭混淆，便于对照源码排查方向问题。
+-keep-global-name

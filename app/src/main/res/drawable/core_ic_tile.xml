@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  快速设置磁贴图标（core 模块）。
+  造型：一段 270° 的旋转圆弧 + 箭头（「旋转 / 锁定方向」的通用隐喻）。
+  系统会按磁贴状态给这个图标统一上色，所以这里用纯黑即可，不要自己写品牌色。
+
+  几何说明（改路径前务必看）：
+    圆弧 M4.5,12.5 A7.5,7.5 0 1 0 12,5
+      - 圆心 (12,12.5)、半径 7.5，端点分别是 9 点方向 (4.5,12.5) 与 12 点方向 (12,5)；
+      - large-arc-flag=1 且 sweep-flag=0 —— **必须**是 0：SVG 规范里 large-arc==sweep 会选中
+        另一个圆心 (4.5,5)，那样整段弧会跑到画布外（x 到 -3、y 到 -2.5）；
+      - 实际走向：左 → 下 → 右 → 上（逆时针 270°），所以终点在 12 点方向，
+        该处切线方向朝 -x，箭头必须向左指。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M4.5,12.5 A7.5,7.5 0 1 0 12,5"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeWidth="2" />
+
+    <!-- 箭头：指向 -x（逆时针在 12 点方向的运动方向） -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M7.6,5 L12.8,1.9 L12.8,8.1 Z" />
+</vector>

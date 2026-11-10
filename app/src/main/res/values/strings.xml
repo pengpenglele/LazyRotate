@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  应用文案。所有用户可见文字都放这里，UI 代码里不硬编码中文。
+  冻结资源名（见 docs/CONTRACT.md）：app_name / accessibility_service_description /
+  accessibility_service_summary —— 名字与含义都不要改。
+-->
+<resources>
+
+    <!-- ===== 冻结资源 ===== -->
+    <string name="app_name">屏幕方向控制</string>
+    <!-- 无障碍配置页展示给用户看的说明：如实说明只用包名，不读屏幕内容。 -->
+    <string name="accessibility_service_description">只读取当前前台应用的包名，用于按应用自动切换屏幕方向。本服务不读取屏幕内容，不获取界面文字、密码或任何输入信息，也不执行点击操作。</string>
+    <string name="accessibility_service_summary">只读取前台应用包名，用于按应用切换方向；不读取屏幕内容。</string>
+
+    <!-- ===== 通用动作 ===== -->
+    <string name="action_go_authorize">去授权</string>
+    <string name="action_view_settings">去查看</string>
+    <string name="action_copy_command">复制命令</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_retry">重新检测</string>
+    <string name="action_adopt_suggestion">采用建议</string>
+    <string name="action_granted">已授权</string>
+    <string name="action_not_granted">未授权</string>
+    <string name="degree_format">%1$d°</string>
+    <string name="percent_format">%1$d%%</string>
+
+    <!-- ===== 导航 ===== -->
+    <string name="nav_control">控制</string>
+    <string name="nav_rules">应用规则</string>
+    <string name="nav_settings">设置</string>
+
+    <!-- ===== 状态卡 ===== -->
+    <string name="status_title">当前状态</string>
+    <string name="status_target">当前目标</string>
+    <string name="status_angle">实际角度</string>
+    <string name="status_auto_rotate">自动旋转</string>
+    <string name="status_lock">锁定</string>
+    <string name="status_auto_on">已开启</string>
+    <string name="status_auto_off">已关闭</string>
+    <string name="status_lock_engaged">已生效</string>
+    <string name="status_lock_idle">未生效</string>
+    <string name="status_natural_landscape">自然方向：横屏</string>
+    <string name="status_natural_portrait">自然方向：竖屏</string>
+
+    <!-- ===== 主页 ===== -->
+    <string name="home_lock_hint">躺下后先按这个，方向就稳住了</string>
+    <string name="home_flip_hint">换到另一边侧躺时按这个</string>
+    <string name="home_permission_title">缺少「修改系统设置」权限</string>
+    <string name="home_permission_body">没有这项权限时，锁定和翻转都不会真正写进系统。点这里去授权，只需授权一次。</string>
+    <string name="home_quick_title">快捷方向</string>
+    <string name="home_angles_title">绝对角度（0°–270°）</string>
+    <string name="home_sensor_title">躺姿引擎</string>
+    <string name="home_sensor_desc">自己融合重力传感器判断该用哪个角度；不确定时会保持现状，绝不来回翻转。</string>
+    <string name="home_sensor_confidence">置信度</string>
+    <string name="home_sensor_suggested">建议角度</string>
+    <string name="home_sensor_hold">保持现状</string>
+    <string name="home_sensor_hold_hint">置信度不足时保持现状——这正是躺姿场景下最稳的选择，不是故障。</string>
+    <string name="home_sensor_confidence_hint">数值越低，说明重力在屏幕平面上的投影越弱（例如平躺手持），此时不动更安全。</string>
+    <string name="home_foreground_title">前台应用</string>
+    <string name="home_foreground_need_accessibility">开启无障碍服务后，这里会显示当前前台应用，可以一键给它设规则。该服务只读取包名，不读取屏幕内容。</string>
+    <string name="home_foreground_action_accessibility">去开启无障碍</string>
+    <string name="home_foreground_rule_current">当前规则：%1$s</string>
+    <string name="home_foreground_action_add_rule">为它创建规则</string>
+
+    <!-- ===== 应用规则页 ===== -->
+    <string name="rules_search_hint">搜索应用名称或包名</string>
+    <string name="rules_section_rules">已设置规则（%1$d）</string>
+    <string name="rules_section_apps">全部应用（%1$d）</string>
+    <string name="rules_empty">还没有规则。在下面选一个应用，给它指定方向。</string>
+    <string name="rules_no_match">没有匹配的应用</string>
+    <string name="rules_no_apps">读不到已安装应用列表，系统可能限制了应用可见性。</string>
+    <string name="rules_loading">正在读取已安装应用…</string>
+    <string name="rules_rule_target">规则：%1$s</string>
+    <string name="rules_picker_title">为「%1$s」选择方向</string>
+    <string name="rules_picker_subtitle">打开该应用时自动应用所选方向。</string>
+    <string name="rules_pick_target">更改方向</string>
+    <string name="rules_delete_rule">删除 %1$s 的规则</string>
+
+    <!-- ===== 设置页 ===== -->
+    <string name="settings_permission_section">权限状态</string>
+    <string name="settings_permission_hint">核心功能只需要「修改系统设置」。其它权限按需开启；缺少时相关功能会给出引导，不会影响锁定和翻转。</string>
+    <string name="settings_perm_write_title">修改系统设置</string>
+    <string name="settings_perm_write_desc">锁定 / 翻转 / 跟随系统的核心权限，免 root 方案完全依赖它。</string>
+    <string name="settings_perm_overlay_title">悬浮窗</string>
+    <string name="settings_perm_overlay_desc">显示悬浮球，不离开当前应用就能翻转。</string>
+    <string name="settings_perm_notification_title">通知</string>
+    <string name="settings_perm_notification_desc">悬浮球运行时需要常驻通知；Android 13 起需要手动允许。</string>
+    <string name="settings_perm_accessibility_title">无障碍服务</string>
+    <string name="settings_perm_accessibility_desc">只读取当前前台应用的包名，用于按应用规则；不读取屏幕内容，不获取文字。</string>
+    <string name="settings_perm_secure_title">高级档：WRITE_SECURE_SETTINGS</string>
+    <string name="settings_perm_secure_desc">可选。下面的能力只能由电脑 adb 执行，App 内没有开关；没有它不影响锁定、翻转等主要功能。</string>
+    <string name="settings_perm_secure_copied">命令已复制</string>
+    <string name="settings_secure_honest_note">以上命令都需要在电脑上执行一次，App 无法代替你完成——系统没有提供公开接口。授予 WRITE_SECURE_SETTINGS 也不够，所以这里不提供任何开关。</string>
+    <string name="settings_secure_cmd_global_label">① 最推荐：全局让系统忽略应用自己请求的方向（已核实）</string>
+    <string name="settings_secure_cmd_global_note">改成 false 即关闭；查询当前值用 adb shell cmd window get-ignore-orientation-request。重启后仍然保留。</string>
+    <string name="settings_secure_cmd_force_label">② 更彻底：让系统无条件采用你设定的方向（已核实）</string>
+    <string name="settings_secure_cmd_force_note">改成 disabled 即关闭。代价：被强制的应用可能出现黑边（letterbox）而不是铺满屏幕。</string>
+    <string name="settings_secure_cmd_app_label">③ 可选：只对某一个应用生效（把 &lt;包名&gt; 换成目标应用，例如 com.example.videoapp；未完全核实）</string>
+    <string name="settings_secure_cmd_app_note">只对指定应用生效；取消用 adb shell am compat disable &lt;同上&gt; &lt;包名&gt;。执行后系统默认会重启该应用。该命令来自官方大屏兼容模式文档（未能独立核实原文），请在执行前自行确认。</string>
+    <string name="settings_device_section">设备</string>
+    <string name="settings_natural_landscape_title">自然方向为横屏</string>
+    <string name="settings_natural_landscape_desc">平板通常为横屏。如果横竖判断反了，切换这个开关。</string>
+    <string name="settings_overlay_title">悬浮球</string>
+    <string name="settings_overlay_desc">开启后显示一个可拖动的悬浮球，不离开当前应用就能翻转（需要悬浮窗权限）。</string>
+    <string name="settings_overlay_need_permission">需要先授予悬浮窗权限</string>
+    <string name="settings_tips_section">快速入口</string>
+    <string name="settings_tip_tile">快速设置磁贴：下拉通知栏 → 编辑 → 把「屏幕方向控制」拖进快捷磁贴，躺姿下一键锁定或者翻转。</string>
+    <string name="settings_tip_overlay">悬浮球：不离开当前应用也能锁定 / 翻转，适合全屏看视频。</string>
+    <string name="settings_about_section">关于与免责声明</string>
+    <string name="settings_about_version">版本 %1$s</string>
+    <string name="settings_about_limitation_title">免 root 的边界</string>
+    <string name="settings_about_limitation_body">本应用通过修改系统旋转设置生效。若某个应用在代码里硬编码了屏幕方向（例如强制竖屏的视频、部分游戏），系统旋转设置无法覆盖它——这是 Android 的设计，不是本应用故障。想让系统忽略应用自身的方向请求，需要在电脑上执行一次 adb 命令（见上方「高级档」卡片），App 自己做不到。</string>
+    <string name="settings_about_privacy">隐私：不联网，不上传任何数据；无障碍服务只读取前台应用包名。</string>
+
+    <!-- ===== 高级档 adb 命令（可整行复制；结构见 SettingsScreen 高级档卡片） ===== -->
+    <string name="adb_cmd_set_ignore_orientation_request">adb shell cmd window set-ignore-orientation-request true</string>
+    <string name="adb_cmd_fixed_to_user_rotation">adb shell cmd window fixed-to-user-rotation enabled</string>
+    <string name="adb_ignore_orientation_request">adb shell am compat enable OVERRIDE_ENABLE_COMPAT_IGNORE_REQUESTED_ORIENTATION com.example.videoapp</string>
+
+    <!-- ===== 操作反馈（Snackbar） ===== -->
+    <string name="msg_missing_write_settings">缺少「修改系统设置」权限，操作没有生效</string>
+    <string name="msg_action_failed">操作没成功，请检查权限后重试</string>
+    <string name="msg_rule_saved">规则已保存</string>
+    <string name="msg_rule_deleted">规则已删除</string>
+    <string name="msg_overlay_failed">悬浮球启动失败，请确认已授予悬浮窗权限</string>
+    <string name="msg_sensor_need_permission">躺姿引擎已开启，但缺少「修改系统设置」权限，暂时无法生效</string>
+
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  平台主题（不要 AppCompat，不要 Material Components View 版）。
+  Compose 负责绘制全部界面，这里只提供窗口级外观：
+    - NoActionBar：标题栏由 Compose 自己画
+    - 透明系统栏 + enableEdgeToEdge() 配合，横竖屏切换不闪
+  父主题刻意用平台 Material Light：minSdk 24，DayNight 平台主题要 API 29+ 才有。
+-->
+<resources>
+
+    <style name="Theme.LazyRotate" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/lazy_window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- 横竖屏由 MainActivity 的 configChanges 自己处理，这里只保证过渡无动作。 -->
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+</resources>

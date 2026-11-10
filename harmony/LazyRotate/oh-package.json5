@@ -1,0 +1,8 @@
+{
+  "modelVersion": "6.0.0",
+  "description": "屏幕方向控制 LazyRotate 鸿蒙版：本应用窗口方向控制 + 系统设置引导 + 躺姿建议",
+  "author": "pengpenglele",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}

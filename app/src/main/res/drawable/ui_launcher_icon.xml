@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  桌面图标（矢量）。意象：一圈旋转箭头 + 中间一把锁 = 「锁住方向，还能翻转」。
+  不引用任何外部素材，全部手写路径。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 圆角方形底色 -->
+    <path
+        android:fillColor="#0B6E99"
+        android:pathData="M24,4 L84,4 A20,20 0 0 1 104,24 L104,84 A20,20 0 0 1 84,104 L24,104 A20,20 0 0 1 4,84 L4,24 A20,20 0 0 1 24,4 Z" />
+
+    <!-- 旋转箭头（3/4 圈弧线） -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M84,58 A30,30 0 1 1 54,28"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="6"
+        android:strokeLineCap="round" />
+
+    <!-- 箭头头部（顺时针方向的切线方向） -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M54,17 L67,28 L54,39 Z" />
+
+    <!-- 锁：锁钩 -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M48,55 L48,49 A6,6 0 0 1 60,49 L60,55"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round" />
+
+    <!-- 锁：锁体 -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M45,55 L63,55 A3,3 0 0 1 66,58 L66,72 A3,3 0 0 1 63,75 L45,75 A3,3 0 0 1 42,72 L42,58 A3,3 0 0 1 45,55 Z" />
+
+</vector>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  这里引用的资源名是跨模块契约，改名前先看 docs/CONTRACT.md：
+    @style/Theme.LazyRotate      -> res/values/themes.xml
+    @string/app_name             -> res/values/strings.xml
+    @drawable/ui_launcher_icon   -> res/drawable/ui_launcher_icon.xml
+    @drawable/core_ic_tile       -> res/drawable/core_ic_tile.xml
+    @xml/accessibility_service_config -> res/xml/accessibility_service_config.xml
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- P0：特殊权限，需用户经 ACTION_MANAGE_WRITE_SETTINGS 手动授予。 -->
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- P1：悬浮球。 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- P1：常驻通知 + 前台服务（悬浮球保活）。 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- P1：开机恢复上次的锁定状态（可选功能，默认关闭）。 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!--
+      P2 备选实现预留：若将来用轮询方式判断前台应用（AppOps 授权，非运行时权限），
+      才需要这条权限。当前版本走无障碍服务，不会请求它。
+    -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- P2 高级档：只能由 `adb shell pm grant` 或 Shizuku 授予，用于覆盖硬编码方向的应用。 -->
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!--
+      按应用规则需要枚举已安装应用。这里用 <queries> 而不是 QUERY_ALL_PACKAGES：
+      前者只放开「有启动器入口的应用」，足以满足规则配置页，且不触发商店的高敏权限审核。
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/ui_launcher_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.LazyRotate"
+        tools:targetApi="36">
+
+        <!--
+          configChanges 全部自己处理，避免旋转时 Activity 重建导致闪烁——
+          对一个「专门管旋转」的应用来说这是必须的。
+        -->
+        <activity
+            android:name="com.lazyrotate.app.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden|density|uiMode|navigation"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:resizeableActivity="true"
+            android:theme="@style/Theme.LazyRotate"
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- 外部指令入口：用 am start 启动本 Activity，并通过 -e TARGET 传入方向代码
+                 （注意：XML 注释正文里不能出现连续两个减号，所以这里不写 adb 命令行原文） -->
+            <intent-filter>
+                <action android:name="com.lazyrotate.app.action.SET_ROTATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- 广播形式的外部指令（Tasker / 自动化）。 -->
+        <receiver
+            android:name="com.lazyrotate.app.core.RotationCommandReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.lazyrotate.app.action.SET_ROTATION" />
+                <action android:name="com.lazyrotate.app.action.CYCLE" />
+                <action android:name="com.lazyrotate.app.action.FLIP" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 快速设置磁贴：躺姿下从通知栏一键锁定/翻转。 -->
+        <service
+            android:name="com.lazyrotate.app.core.QuickTileService"
+            android:exported="true"
+            android:icon="@drawable/core_ic_tile"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+
+        <!-- 悬浮球：不离开当前应用就能翻转。 -->
+        <service
+            android:name="com.lazyrotate.app.core.FloatingOverlayService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="orientation control overlay bubble" />
+        </service>
+
+        <!-- 按应用规则的前台包名来源；用户可以拒绝，拒绝后功能降级但不崩。 -->
+        <service
+            android:name="com.lazyrotate.app.core.RotationAccessibilityService"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- 开机恢复（可选，默认关闭）。 -->
+        <receiver
+            android:name="com.lazyrotate.app.core.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

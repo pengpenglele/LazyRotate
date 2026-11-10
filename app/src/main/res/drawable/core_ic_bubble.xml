@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  悬浮球（core 模块）。
+  造型：深色实心圆 + 白色旋转箭头，直接当 ImageView 的图用，所以带自己的底色（不依赖系统 tint）。
+
+  几何说明：
+    - 实心圆：圆心 (12,12)、半径 10（两段 180° 弧拼成整圆，M2,12 A10,10 0 1 0 22,12 来回一次）。
+    - 白色弧：圆心 (12,12.5)、半径 5.5，端点 9 点方向 (6.5,12.5) 与 12 点方向 (12,7)。
+      large-arc-flag=1、sweep-flag=0 才能选中圆心 (12,12.5)（详见 core_ic_tile.xml 的说明）；
+      走向为左 → 下 → 右 → 上（逆时针 270°），所以箭头在 12 点方向朝 -x。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="#FF2C3E50"
+        android:pathData="M2,12 A10,10 0 1 0 22,12 A10,10 0 1 0 2,12 Z" />
+
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M6.5,12.5 A5.5,5.5 0 1 0 12,7"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="1.6" />
+
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M8.5,7 L12.6,4.6 L12.6,9.4 Z" />
+</vector>

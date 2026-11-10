@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  core 模块独占的字符串资源（resources merging 会与 res/values/strings.xml 合并，
+  所以这里的名字一律加 core_ 前缀，不要与主 strings.xml 抢名字，尤其不要再定义 app_name）。
+  引用的地方：NotificationFactory、QuickTileService、FloatingOverlayService。
+-->
+<resources>
+
+    <!-- 常驻通知（悬浮球前台服务） -->
+    <string name="core_notif_channel_name">旋转控制</string>
+    <string name="core_notif_channel_description">悬浮球与快速旋转的常驻通知</string>
+    <string name="core_notif_title">屏幕方向控制</string>
+    <string name="core_notif_text_locked">方向已锁定</string>
+    <string name="core_notif_text_unlocked">跟随系统自动旋转</string>
+    <string name="core_notif_action_lock">锁定当前</string>
+    <string name="core_notif_action_flip">翻转 180°</string>
+    <string name="core_notif_action_follow">跟随系统</string>
+
+    <!-- 悬浮窗权限缺失提示 -->
+    <string name="core_overlay_missing_title">缺少悬浮窗权限</string>
+    <string name="core_overlay_missing_text">请先授予「显示在其他应用上层」权限，再打开悬浮球</string>
+
+    <!-- 悬浮球 -->
+    <string name="core_bubble_content_description">旋转控制悬浮球：单击锁定或翻转，长按打开应用</string>
+
+    <!-- 快速设置磁贴 -->
+    <string name="core_tile_label_locked">已锁定</string>
+    <string name="core_tile_label_unlocked">自动旋转</string>
+
+    <!-- Toast 提示 -->
+    <string name="core_toast_no_write_settings">需要「修改系统设置」权限，请在应用内授权</string>
+    <string name="core_toast_cycle_failed">修改系统设置失败</string>
+    <string name="core_toast_locked">已锁定当前方向</string>
+    <string name="core_toast_flipped">已翻转 180°</string>
+    <string name="core_toast_following">已恢复跟随系统</string>
+
+</resources>

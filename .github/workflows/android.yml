@@ -1,0 +1,76 @@
+name: Android build
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - 'harmony/**'
+      - '**/*.md'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: assembleDebug
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # compileSdk 37 的平台包在托管镜像上不一定预装，显式装一遍。
+      # 2026 版 cmdline-tools 把入口从 sdkmanager 改成 android，两种都试；
+      # 装不上时不让 CI 直接失败，留给 AGP 的自动补装兜底。
+      - name: Install Android SDK packages
+        run: |
+          set -uo pipefail
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls "$ANDROID_HOME/platforms" || true
+          ls "$ANDROID_HOME/build-tools" || true
+
+          BIN="$ANDROID_HOME/cmdline-tools/latest/bin"
+          CLI=""
+          for cand in "$BIN/sdkmanager" "$BIN/android"; do
+            if [ -x "$cand" ]; then CLI="$cand"; break; fi
+          done
+          if [ -z "$CLI" ]; then
+            echo "::warning::cmdline-tools not found under $BIN; relying on AGP auto-install"
+            exit 0
+          fi
+
+          echo "using $CLI"
+          yes | "$CLI" --licenses >/dev/null 2>&1 || true
+          if [ "$(basename "$CLI")" = "android" ]; then
+            "$CLI" --sdk="$ANDROID_HOME" sdk install 'platforms/android-37.0' 'build-tools/37.0.0' 'platform-tools' || true
+          else
+            "$CLI" "platforms;android-37.0" "build-tools;37.0.0" "platform-tools" || true
+            "$CLI" "platforms;android-37" || true
+          fi
+
+          echo "--- platforms after install ---"
+          ls "$ANDROID_HOME/platforms" || true
+
+      - name: Build debug APK
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug --console=plain --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
